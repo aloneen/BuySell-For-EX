@@ -30,6 +30,13 @@ public class ProductService {
     public void updateProduct(Product product) {
         productRepository.save(product);
     }
+    public List<Product> searchByTitle(String title) {
+        return productRepository.findByTitleContainingIgnoreCase(title);
+    }
+
+    public List<Product> filterByCategory(Long categoryId) {
+        return productRepository.findByCategoryId(categoryId);
+    }
 
 
 }
