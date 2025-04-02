@@ -3,6 +3,9 @@ package kz.seisen.buysellforex.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Product {
 
@@ -18,6 +21,8 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> images = new ArrayList<>();
 
     public Product(Long id, String title, String description, int price, String city, String author, Category category) {
         this.id = id;
@@ -31,6 +36,27 @@ public class Product {
 
     public Product() {
     }
+
+
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+
+    public void addImage(Image image) {
+        images.add(image);
+        image.setProduct(this);
+    }
+
+
+
+
+
+
 
     public Long getId() {
         return id;

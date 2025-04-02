@@ -1,19 +1,32 @@
 package kz.seisen.buysellforex.service;
 
 
+import kz.seisen.buysellforex.model.Image;
 import kz.seisen.buysellforex.model.Product;
+import kz.seisen.buysellforex.repository.ImageRepository;
 import kz.seisen.buysellforex.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private ImageRepository imageRepository;
 
+
+
+
+
+    public Image getImageById(Long id) {
+        return imageRepository.findById(id).orElse(null);
+    }
 
     public void saveProduct(Product product) {
         productRepository.save(product);
